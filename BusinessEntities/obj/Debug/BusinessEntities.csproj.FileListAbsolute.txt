@@ -1,0 +1,5 @@
+C:\Projects\CarShop\BusinessEntities\bin\Debug\BusinessEntities.dll
+C:\Projects\CarShop\BusinessEntities\bin\Debug\BusinessEntities.pdb
+C:\Projects\CarShop\BusinessEntities\obj\Debug\BusinessEntities.dll
+C:\Projects\CarShop\BusinessEntities\obj\Debug\BusinessEntities.pdb
+C:\Projects\CarShop\BusinessEntities\obj\Debug\BusinessEntities.csprojResolveAssemblyReference.cache
