@@ -8,3 +8,13 @@ C:\Projects\CarShop\DataModel\bin\Debug\EntityFramework.SqlServer.xml
 C:\Projects\CarShop\DataModel\obj\Debug\DataModel.dll
 C:\Projects\CarShop\DataModel\obj\Debug\DataModel.pdb
 C:\Projects\CarShop\DataModel\obj\Debug\DataModel.csprojResolveAssemblyReference.cache
+C:\Tom\CarsaleTest\DataModel\bin\Debug\DataModel.dll.config
+C:\Tom\CarsaleTest\DataModel\bin\Debug\DataModel.dll
+C:\Tom\CarsaleTest\DataModel\bin\Debug\DataModel.pdb
+C:\Tom\CarsaleTest\DataModel\bin\Debug\EntityFramework.dll
+C:\Tom\CarsaleTest\DataModel\bin\Debug\EntityFramework.SqlServer.dll
+C:\Tom\CarsaleTest\DataModel\bin\Debug\EntityFramework.xml
+C:\Tom\CarsaleTest\DataModel\bin\Debug\EntityFramework.SqlServer.xml
+C:\Tom\CarsaleTest\DataModel\obj\Debug\DataModel.csprojResolveAssemblyReference.cache
+C:\Tom\CarsaleTest\DataModel\obj\Debug\DataModel.dll
+C:\Tom\CarsaleTest\DataModel\obj\Debug\DataModel.pdb

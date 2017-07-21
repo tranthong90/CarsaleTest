@@ -15,6 +15,5 @@ namespace BusinessServices
         int CreateDealer(DealerEntity dealerEntity);
         bool UpdateDealer(int dealerId, DealerEntity dealerEntity);
         bool DeleteDealer(int dealerId);
-        Task<string> GenerateSummaryEmail(string emailAddress,string username);
     }
 }

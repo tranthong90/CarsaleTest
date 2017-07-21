@@ -50,9 +50,9 @@ namespace CarShop.Controllers
             if (IsAdmin())
             {
                 var Dealers = _dealerServices.GetAllDealers();
-                var productEntities = Dealers as List<DealerEntity> ?? Dealers.ToList();
-                if (productEntities.Any())
-                    return Request.CreateResponse(HttpStatusCode.OK, productEntities);
+                var dealersEntities = Dealers as List<DealerEntity> ?? Dealers.ToList();
+                if (dealersEntities.Any())
+                    return Request.CreateResponse(HttpStatusCode.OK, dealersEntities);
                 return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Dealers not found");
             }
             else
@@ -72,6 +72,7 @@ namespace CarShop.Controllers
                 return Request.CreateErrorResponse(HttpStatusCode.Unauthorized, "Only Admin can perform this action");
         }
 
+        [Route("api/Dealers/MyInfo")]
         [HttpGet]
         public HttpResponseMessage MyInfo()
         {
@@ -84,20 +85,9 @@ namespace CarShop.Controllers
             return Request.CreateErrorResponse(HttpStatusCode.NotFound, "No dealer found");
         }
 
-        [HttpGet]
-        public async System.Threading.Tasks.Task<HttpResponseMessage> SendMySummary(string emailAddress)
-        {
-            var identity = (ClaimsIdentity)User.Identity;
-            IEnumerable<Claim> claims = identity.Claims;
-            var username = claims.FirstOrDefault(x => x.Type.Equals("sub"));
+       
 
-            var sendEmail = await _dealerServices.GenerateSummaryEmail(emailAddress, username.Value);
-            if (sendEmail.Equals("Ok"))
-                return Request.CreateResponse(HttpStatusCode.OK);
-            else
-                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "Cannot send email. Error: " + sendEmail);
-        }
-
+        [Route("api/Dealers/UpdateMyInfo")]
         [HttpPut]
         public HttpResponseMessage UpdateMyInfo([FromBody]DealerEntity DealerEntity)
         {

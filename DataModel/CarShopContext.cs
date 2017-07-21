@@ -18,7 +18,7 @@ namespace DataModel
 
     }
 
-    public class CarShopDbInitializer : DropCreateDatabaseAlways<CarShopContext> //DropCreateDatabaseAlways -- CreateDatabaseIfNotExists<CarShopContext>
+    public class CarShopDbInitializer : CreateDatabaseIfNotExists<CarShopContext> //DropCreateDatabaseAlways -- CreateDatabaseIfNotExists<CarShopContext>
     {
         protected override void Seed(CarShopContext context)
         {

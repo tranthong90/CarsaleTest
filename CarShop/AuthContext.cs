@@ -83,6 +83,22 @@ namespace CarShop
                         }
                     }
 
+                    // Create admin users
+                    var normalUser = userManager.FindByName("NormalUser1");
+                    if (normalUser == null)
+                    {
+
+                        normalUser = new IdentityUser
+                        {
+                            UserName = "NormalUser1",
+
+                        };
+
+                        userManager.Create(normalUser, "123456");
+                        userManager.SetLockoutEnabled(adminUser.Id, false);
+
+                    }
+
                 }
             }
 

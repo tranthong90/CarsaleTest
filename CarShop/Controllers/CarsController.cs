@@ -48,6 +48,8 @@ namespace CarShop.Controllers
                 return false;
 
         }
+
+        [Route("api/Cars/GetMyCars")]
         [HttpGet]
         public HttpResponseMessage GetMyCars()
         {
@@ -56,22 +58,47 @@ namespace CarShop.Controllers
             if (IsAdminOrDealer(out Username, out IsDealer))
             {
                 var Cars = _carServices.GetAllCarsByDealerName(Username);
-                var carEntities = Cars as List<CarEntity> ?? Cars.ToList();
-                if (carEntities.Any())
-                    return Request.CreateResponse(HttpStatusCode.OK, carEntities);
+                if (Cars != null)
+                {
+                    var carEntities = Cars as List<CarEntity> ?? Cars.ToList();
+                    if (carEntities.Any())
+                        return Request.CreateResponse(HttpStatusCode.OK, carEntities);
+                }
                 return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Cars not found");
             }
             else
                 return Request.CreateErrorResponse(HttpStatusCode.Unauthorized, "Only Admin and Dealer can perform this action");
         }
 
+        [Route("api/Cars/SendMySummary")]
+        [HttpGet]
+        public async System.Threading.Tasks.Task<HttpResponseMessage> SendMySummary(string emailAddress)
+        {
+            string Username;
+            bool IsDealer;
+            if (IsAdminOrDealer(out Username, out IsDealer))
+            {
+                var sendEmail = await _carServices.GenerateSummaryEmail(emailAddress, Username);
+                if (sendEmail.Equals("Ok"))
+                    return Request.CreateResponse(HttpStatusCode.OK);
+                else
+                    return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "Cannot send email. Error: " + sendEmail);
+            }
+            else
+                return Request.CreateErrorResponse(HttpStatusCode.Unauthorized, "Only Admin and Dealer can perform this action");
+        }
+
+        [Route("api/Cars/GetCars")]
         [HttpGet]
         public HttpResponseMessage GetCars(int? year, string make, string model, string badge, string engineSize, string tranmission, DateTime? created, int? dealerId)
         {
             var Cars = _carServices.GetAllCarsByConditions(year, make, model, badge, engineSize, tranmission, created, dealerId);
-            var carEntities = Cars as List<CarEntity> ?? Cars.ToList();
-            if (carEntities.Any())
-                return Request.CreateResponse(HttpStatusCode.OK, carEntities);
+            if (Cars != null)
+            {
+                var carEntities = Cars as List<CarEntity> ?? Cars.ToList();
+                if (carEntities.Any())
+                    return Request.CreateResponse(HttpStatusCode.OK, carEntities);
+            }
             return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Cars not found");
         }
 
@@ -119,6 +146,24 @@ namespace CarShop.Controllers
             {
                 if (id > 0)
                     return Request.CreateResponse(HttpStatusCode.OK, _carServices.DeleteCarByDealer(id, Username));
+                else
+                    return Request.CreateErrorResponse(HttpStatusCode.NotAcceptable, "Id must be greater than 0");
+            }
+            else
+                return Request.CreateErrorResponse(HttpStatusCode.Unauthorized, "Only Admin and Dealer can perform this action");
+
+        }
+
+        [Route("api/Cars/Archive")]
+        [HttpGet]
+        public HttpResponseMessage Archive(int carId)
+        {
+            string Username;
+            bool IsDealer;
+            if (IsAdminOrDealer(out Username, out IsDealer))
+            {
+                if (carId > 0)
+                    return Request.CreateResponse(HttpStatusCode.OK, _carServices.ArchiveCarByDealer(carId, Username));
                 else
                     return Request.CreateErrorResponse(HttpStatusCode.NotAcceptable, "Id must be greater than 0");
             }

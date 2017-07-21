@@ -22,5 +22,10 @@ namespace BusinessServices
         bool UpdateCarByDealer(int carId, CarEntity carEntity, string dealerUsername);
         bool DeleteCar(int carId);
         bool DeleteCarByDealer(int carId, string dealerUsername);
+        bool ArchiveCar(int carId);
+        bool ArchiveCarByDealer(int carId, string dealerUsername);
+        Task<string> GenerateSummaryEmail(string emailAddress, string username);
+
+
     }
 }
